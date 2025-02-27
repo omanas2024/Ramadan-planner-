@@ -1,46 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let darkMode = localStorage.getItem("darkMode") === "enabled";
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || {};
-    let selectedDay = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const dayNumber = urlParams.get("day");
 
-    if (Notification.permission !== "granted") {
-        Notification.requestPermission();
+    if (dayNumber) {
+        document.getElementById("dayTitle").innerText = `📅 يوم رمضان ${dayNumber}`;
     }
 
-    function generateRamadanCalendar() {
-        const calendarDiv = document.getElementById("ramadanCalendar");
-        calendarDiv.innerHTML = "";
-
-        const startDate = new Date("2025-03-01"); // أول يوم رمضان 1446 هـ (ميلادي)
-        for (let i = 0; i < 30; i++) {
-            let day = new Date(startDate);
-            day.setDate(day.getDate() + i);
-
-            let dayElement = document.createElement("button");
-            dayElement.className = "calendar-day";
-            dayElement.innerText = `يوم ${i + 1} - ${day.toLocaleDateString('ar-EG')}`;
-            dayElement.onclick = function () { selectDay(i + 1, day.toLocaleDateString('ar-EG')); };
-
-            calendarDiv.appendChild(dayElement);
-        }
-    }
-
-    function selectDay(ramadanDay, date) {
-        selectedDay = ramadanDay;
-        document.getElementById("selectedDay").innerText = `📅 يوم ${ramadanDay} - ${date}`;
-        document.getElementById("taskSection").style.display = "block";
-        renderTasks();
-    }
+    let tasks = JSON.parse(localStorage.getItem(`tasks_${dayNumber}`)) || [];
 
     function renderTasks() {
-        if (!selectedDay) return;
-
         const taskList = document.getElementById("taskList");
         taskList.innerHTML = "";
 
-        let dayTasks = tasks[selectedDay] || [];
-        dayTasks.forEach((task, index) => {
+        tasks.forEach((task, index) => {
             const taskItem = document.createElement("li");
+            taskItem.className = task.completed ? "completed" : "";
             taskItem.innerHTML = `
                 <span>${task.text} 🕒 ${task.time || "غير محدد"}</span>
                 <button onclick="completeTask(${index})">🏆</button>
@@ -50,73 +24,54 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         saveTasks();
-        checkTaskNotifications();
     }
 
     window.addTask = function () {
-        if (!selectedDay) return;
-
-        const taskInput = document.getElementById("taskInput").value;
+        const taskSelect = document.getElementById("taskSelect");
+        const customTaskInput = document.getElementById("customTaskInput");
         const taskTime = document.getElementById("taskTime").value;
+        let taskText = "";
 
-        if (taskInput.trim() !== "") {
-            if (!tasks[selectedDay]) tasks[selectedDay] = [];
-            tasks[selectedDay].push({ text: taskInput, time: taskTime, completed: false });
-            document.getElementById("taskInput").value = "";
+        if (taskSelect.value === "✍️ مهمة أخرى") {
+            if (customTaskInput.value.trim() !== "") {
+                taskText = customTaskInput.value;
+                customTaskInput.value = "";
+            } else {
+                alert("يرجى إدخال اسم المهمة.");
+                return;
+            }
+        } else {
+            taskText = taskSelect.value;
+        }
+
+        if (taskText !== "") {
+            tasks.push({ text: taskText, time: taskTime, completed: false });
             renderTasks();
         }
     };
 
     window.completeTask = function (index) {
-        tasks[selectedDay][index].completed = true;
+        tasks[index].completed = true;
         renderTasks();
     };
 
     window.deleteTask = function (index) {
-        tasks[selectedDay].splice(index, 1);
+        tasks.splice(index, 1);
         renderTasks();
     };
 
     window.resetAllTasks = function () {
-        tasks = {};
+        tasks = [];
         renderTasks();
     };
 
-    window.toggleDarkMode = function () {
-        darkMode = !darkMode;
-        document.body.classList.toggle("dark-mode", darkMode);
-        localStorage.setItem("darkMode", darkMode ? "enabled" : "disabled");
+    function saveTasks() {
+        localStorage.setItem(`tasks_${dayNumber}`, JSON.stringify(tasks));
+    }
+
+    window.goBack = function () {
+        window.location.href = "index.html";
     };
 
-    function saveTasks() {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    function checkTaskNotifications() {
-        setInterval(() => {
-            const now = new Date();
-            const currentTime = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0");
-
-            Object.keys(tasks).forEach(day => {
-                tasks[day].forEach(task => {
-                    if (task.time === currentTime && !task.notified) {
-                        sendNotification(task.text);
-                        task.notified = true;
-                        saveTasks();
-                    }
-                });
-            });
-        }, 60000);
-    }
-
-    function sendNotification(taskName) {
-        if (Notification.permission === "granted") {
-            new Notification("⏰ وقت المهمة!", {
-                body: `حان الآن وقت: ${taskName}`,
-                icon: "https://cdn-icons-png.flaticon.com/512/3906/3906567.png"
-            });
-        }
-    }
-
-    generateRamadanCalendar();
+    renderTasks();
 });
