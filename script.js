@@ -1,30 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     let darkMode = localStorage.getItem("darkMode") === "enabled";
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || {};
+    let selectedDay = null;
 
     if (Notification.permission !== "granted") {
         Notification.requestPermission();
     }
 
-    function displayCurrentDate() {
-        let today = new Date();
-        let options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-        document.getElementById("current-date").innerText = "📅 اليوم: " + today.toLocaleDateString('ar-EG', options);
+    function generateRamadanCalendar() {
+        const calendarDiv = document.getElementById("ramadanCalendar");
+        calendarDiv.innerHTML = "";
+
+        const startDate = new Date("2024-03-11"); // أول يوم رمضان 1445 هـ (ميلادي)
+        for (let i = 0; i < 30; i++) {
+            let day = new Date(startDate);
+            day.setDate(day.getDate() + i);
+
+            let dayElement = document.createElement("button");
+            dayElement.className = "calendar-day";
+            dayElement.innerText = `يوم ${i + 1} - ${day.toLocaleDateString('ar-EG')}`;
+            dayElement.onclick = function () { selectDay(i + 1, day.toLocaleDateString('ar-EG')); };
+
+            calendarDiv.appendChild(dayElement);
+        }
+    }
+
+    function selectDay(ramadanDay, date) {
+        selectedDay = ramadanDay;
+        document.getElementById("selectedDay").innerText = `📅 يوم ${ramadanDay} - ${date}`;
+        document.getElementById("taskSection").style.display = "block";
+        renderTasks();
     }
 
     function renderTasks() {
+        if (!selectedDay) return;
+
         const taskList = document.getElementById("taskList");
         taskList.innerHTML = "";
 
-        tasks.forEach((task, index) => {
+        let dayTasks = tasks[selectedDay] || [];
+        dayTasks.forEach((task, index) => {
             const taskItem = document.createElement("li");
-            taskItem.className = task.completed ? "completed" : "";
             taskItem.innerHTML = `
-                <span>${task.text} 📅 ${task.date || "غير محدد"} 🕒 ${task.time || "غير محدد"}</span>
-                <div class="task-buttons">
-                    <button onclick="completeTask(${index})">🏆</button>
-                    <button onclick="deleteTask(${index})">🗑</button>
-                </div>
+                <span>${task.text} 🕒 ${task.time || "غير محدد"}</span>
+                <button onclick="completeTask(${index})">🏆</button>
+                <button onclick="deleteTask(${index})">🗑</button>
             `;
             taskList.appendChild(taskItem);
         });
@@ -34,40 +54,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addTask = function () {
-        const taskSelect = document.getElementById("taskSelect");
-        const customTaskInput = document.getElementById("customTaskInput");
-        const taskDate = document.getElementById("taskDate").value;
+        if (!selectedDay) return;
+
+        const taskInput = document.getElementById("taskInput").value;
         const taskTime = document.getElementById("taskTime").value;
-        let taskText = "";
 
-        if (taskSelect.value === "✍️ مهمة أخرى") {
-            taskText = customTaskInput.value.trim();
-            if (taskText === "") {
-                alert("يرجى إدخال اسم المهمة.");
-                return;
-            }
-        } else {
-            taskText = taskSelect.value;
-        }
-
-        if (taskText !== "" && !tasks.some(task => task.text === taskText && task.date === taskDate)) {
-            tasks.push({ text: taskText, date: taskDate, time: taskTime, completed: false });
+        if (taskInput.trim() !== "") {
+            if (!tasks[selectedDay]) tasks[selectedDay] = [];
+            tasks[selectedDay].push({ text: taskInput, time: taskTime, completed: false });
+            document.getElementById("taskInput").value = "";
             renderTasks();
         }
     };
 
+    window.completeTask = function (index) {
+        tasks[selectedDay][index].completed = true;
+        renderTasks();
+    };
+
+    window.deleteTask = function (index) {
+        tasks[selectedDay].splice(index, 1);
+        renderTasks();
+    };
+
+    window.resetAllTasks = function () {
+        tasks = {};
+        renderTasks();
+    };
+
+    window.toggleDarkMode = function () {
+        darkMode = !darkMode;
+        document.body.classList.toggle("dark-mode", darkMode);
+        localStorage.setItem("darkMode", darkMode ? "enabled" : "disabled");
+    };
+
+    function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
     function checkTaskNotifications() {
         setInterval(() => {
-            let now = new Date();
-            let currentDate = now.toISOString().split("T")[0];
-            let currentTime = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0");
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0");
 
-            tasks.forEach(task => {
-                if (task.date === currentDate && task.time === currentTime && !task.notified) {
-                    sendNotification(task.text);
-                    task.notified = true;
-                    saveTasks();
-                }
+            Object.keys(tasks).forEach(day => {
+                tasks[day].forEach(task => {
+                    if (task.time === currentTime && !task.notified) {
+                        sendNotification(task.text);
+                        task.notified = true;
+                        saveTasks();
+                    }
+                });
             });
         }, 60000);
     }
@@ -81,10 +118,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function saveTasks() {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    displayCurrentDate();
-    renderTasks();
+    generateRamadanCalendar();
 });
