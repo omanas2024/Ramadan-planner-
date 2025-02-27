@@ -1,69 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" class="Counter-app">
-<head>
-  <meta charset="UTF-8">
-  <title>عداد تسبيح</title>
-  Script<link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="ar">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>البلانر اليومي</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البلانر اليومي</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
-
 <body>
 
-  <div class="container">
-    <h1>📋 البلانر اليومي</h1>
+    <div class="container">
+        <h1>📋 البلانر اليومي</h1>
 
-    <!-- إدخال مهمة جديدة مع التوقيت -->
-    <div class="task-input">
-      <select id="taskSelect">
-        <option value="">اختر مهمة...</option>
-        <option value="🕌 الفجر">🕌 الفجر</option>
-        <option value="🕌 الظهر">🕌 الظهر</option>
-        <option value="🕌 العصر">🕌 العصر</option>
-        <option value="🕌 المغرب">🕌 المغرب</option>
-        <option value="🕌 العشاء">🕌 العشاء</option>
-        <option value="🛐 الرواتب 12 ركعة">🛐 الرواتب 12 ركعة</option>
-        <option value="🌙 الوتر">🌙 الوتر</option>
-        <option value="🕌 التراويح">🕌 التراويح</option>
-        <option value="🤲 الدعاء">🤲 الدعاء</option>
-        <option value="💖 اللهم إنك عفو تحب العفو فاعف عني">💖 اللهم إنك عفو تحب العفو فاعف عني</option>
-        <option value="📖 القرآن">📖 القرآن</option>
-        <option value="🤝 صلة الرحم">🤝 صلة الرحم</option>
-        <option value="💰 الصدقة">💰 الصدقة</option>
-        <option value="👨‍👩‍👧 بر الوالدين والدعاء لهما">👨‍👩‍👧 بر الوالدين والدعاء لهما</option>
-        <option value="✍️ مهمة أخرى">✍️ مهمة أخرى...</option>
-      </select>
-      <input type="text" id="customTaskInput" placeholder="أدخل المهمة هنا..." style="display: none;">
-      <input type="time" id="taskTime">
-      <button onclick="addTask()">➕</button>
+        <!-- عرض تاريخ اليوم -->
+        <div class="date-container">
+            <p id="current-date"></p>
+        </div>
+
+        <!-- إدخال مهمة جديدة مع التاريخ والوقت -->
+        <div class="task-input">
+            <select id="taskSelect">
+                <option value="">اختر مهمة...</option>
+                <option value="🕌 الفجر">🕌 الفجر</option>
+                <option value="🕌 الظهر">🕌 الظهر</option>
+                <option value="🕌 العصر">🕌 العصر</option>
+                <option value="🕌 المغرب">🕌 المغرب</option>
+                <option value="🕌 العشاء">🕌 العشاء</option>
+                <option value="🛐 الرواتب 12 ركعة">🛐 الرواتب 12 ركعة</option>
+                <option value="🌙 الوتر">🌙 الوتر</option>
+                <option value="🕌 التراويح">🕌 التراويح</option>
+                <option value="🤲 الدعاء">🤲 الدعاء</option>
+                <option value="💖 اللهم إنك عفو تحب العفو فاعف عني">💖 اللهم إنك عفو تحب العفو فاعف عني</option>
+                <option value="📖 القرآن">📖 القرآن</option>
+                <option value="🤝 صلة الرحم">🤝 صلة الرحم</option>
+                <option value="💰 الصدقة">💰 الصدقة</option>
+                <option value="👨‍👩‍👧 بر الوالدين والدعاء لهما">👨‍👩‍👧 بر الوالدين والدعاء لهما</option>
+                <option value="✍️ مهمة أخرى">✍️ مهمة أخرى...</option>
+            </select>
+            <input type="text" id="customTaskInput" placeholder="أدخل المهمة هنا..." style="display: none;">
+            <input type="date" id="taskDate">
+            <input type="time" id="taskTime">
+            <button onclick="addTask()">➕</button>
+        </div>
+
+        <!-- قائمة المهام -->
+        <ul id="taskList"></ul>
+
+        <!-- أزرار التحكم -->
+        <div class="controls">
+            <button class="toggle-mode" onclick="toggleDarkMode()">🌙</button>
+            <button class="reset-all" onclick="resetAllTasks()">🔄 إعادة تعيين الكل</button>
+        </div>
     </div>
-
-    <!-- قائمة المهام -->
-    <ul id="taskList"></ul>
-
-    <!-- أزرار التحكم -->
-    <div class="controls">
-      <button class="toggle-mode" onclick="toggleDarkMode()">🌙</button>
-      <button class="reset-all" onclick="resetAllTasks()">🔄 إعادة تعيين الكل</button>
-    </div>
-  </div>
-
-</body>
-
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
 </body>
 </html>
