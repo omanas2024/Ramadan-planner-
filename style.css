@@ -1,0 +1,90 @@
+/* ضبط الخلفية */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  direction: rtl;
+  background: url("ساعة فارغة يمكن الكتابة عليها في الخلفية رمضان.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  color: black;
+  transition: background 0.5s, color 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* صندوق المهام */
+.container {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+/* إدخال المهمة */
+.task-input {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.task-input select,
+.task-input input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.task-input button {
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background: #87cefa;
+  border-radius: 5px;
+}
+
+/* قائمة المهام */
+ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+li.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* زر الإنجاز */
+.task-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+/* الوضع الليلي */
+.dark-mode {
+  background: #222;
+  color: white;
+}
+
+.dark-mode .container {
+  background: rgba(51, 51, 51, 0.9);
+}
