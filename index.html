@@ -3,48 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البلانر اليومي</title>
+    <title>تقويم رمضان</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
 <body>
 
     <div class="container">
-        <h1>📋 البلانر اليومي</h1>
+        <h1>🌙 تقويم رمضان</h1>
 
-        <!-- عرض تاريخ اليوم -->
-        <div class="date-container">
-            <p id="current-date"></p>
+        <!-- عرض تقويم رمضان -->
+        <div class="calendar">
+            <h2>رمضان 1445 هـ</h2>
+            <div id="ramadanCalendar"></div>
         </div>
 
-        <!-- إدخال مهمة جديدة مع التاريخ والوقت -->
-        <div class="task-input">
-            <select id="taskSelect">
-                <option value="">اختر مهمة...</option>
-                <option value="🕌 الفجر">🕌 الفجر</option>
-                <option value="🕌 الظهر">🕌 الظهر</option>
-                <option value="🕌 العصر">🕌 العصر</option>
-                <option value="🕌 المغرب">🕌 المغرب</option>
-                <option value="🕌 العشاء">🕌 العشاء</option>
-                <option value="🛐 الرواتب 12 ركعة">🛐 الرواتب 12 ركعة</option>
-                <option value="🌙 الوتر">🌙 الوتر</option>
-                <option value="🕌 التراويح">🕌 التراويح</option>
-                <option value="🤲 الدعاء">🤲 الدعاء</option>
-                <option value="💖 اللهم إنك عفو تحب العفو فاعف عني">💖 اللهم إنك عفو تحب العفو فاعف عني</option>
-                <option value="📖 القرآن">📖 القرآن</option>
-                <option value="🤝 صلة الرحم">🤝 صلة الرحم</option>
-                <option value="💰 الصدقة">💰 الصدقة</option>
-                <option value="👨‍👩‍👧 بر الوالدين والدعاء لهما">👨‍👩‍👧 بر الوالدين والدعاء لهما</option>
-                <option value="✍️ مهمة أخرى">✍️ مهمة أخرى...</option>
-            </select>
-            <input type="text" id="customTaskInput" placeholder="أدخل المهمة هنا..." style="display: none;">
-            <input type="date" id="taskDate">
-            <input type="time" id="taskTime">
-            <button onclick="addTask()">➕</button>
+        <!-- قائمة المهام لليوم المحدد -->
+        <div id="taskSection" style="display: none;">
+            <h2 id="selectedDay"></h2>
+            <div class="task-input">
+                <input type="text" id="taskInput" placeholder="أدخل المهمة">
+                <input type="time" id="taskTime">
+                <button onclick="addTask()">➕</button>
+            </div>
+            <ul id="taskList"></ul>
         </div>
-
-        <!-- قائمة المهام -->
-        <ul id="taskList"></ul>
 
         <!-- أزرار التحكم -->
         <div class="controls">
