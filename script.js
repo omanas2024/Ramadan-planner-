@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const calendarDiv = document.getElementById("ramadanCalendar");
         calendarDiv.innerHTML = "";
 
-        const startDate = new Date("2024-03-11"); // أول يوم رمضان 1445 هـ (ميلادي)
+        const startDate = new Date("2025-03-01"); // أول يوم رمضان 1446 هـ (ميلادي)
         for (let i = 0; i < 30; i++) {
             let day = new Date(startDate);
             day.setDate(day.getDate() + i);
