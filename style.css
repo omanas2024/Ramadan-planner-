@@ -27,6 +27,11 @@ body {
     justify-content: center;
     gap: 5px;
 }
+.completed {
+    background-color: #b2f7b2;
+    text-decoration: line-through;
+}
+
 
 .calendar-day {
     padding: 10px;
