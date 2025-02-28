@@ -1,75 +1,34 @@
-const calendar = document.getElementById('calendar');
-const taskModal = document.getElementById('taskModal');
-const closeModal = document.getElementById('closeModal');
-const taskList = document.getElementById('taskList');
-const newTaskInput = document.getElementById('newTask');
-const addTaskButton = document.getElementById('addTask');
+document.addEventListener("DOMContentLoaded", function () {
+    function generateRamadanCalendar() {
+        const calendarDiv = document.getElementById("ramadanCalendar");
+        if (!calendarDiv) {
+            console.error("لم يتم العثور على عنصر التقويم!");
+            return;
+        }
 
-// عدد أيام رمضان
-const daysInRamadan = 30;
+        calendarDiv.innerHTML = "";
+        calendarDiv.style.display = "grid";
+        calendarDiv.style.gridTemplateColumns = "repeat(7, 1fr)";
+        calendarDiv.style.gap = "10px";
+        calendarDiv.style.direction = "rtl";
 
-// مصفوفة لتخزين المهام لكل يوم
-let tasks = Array.from({ length: daysInRamadan }, () => []);
+        const startDate = new Date("2025-03-01");
+        const firstDayOfWeek = startDate.getDay();
 
-// إنشاء تقويم
-function createCalendar() {
-    for (let i = daysInRamadan; i >= 1; i--) {
-        const dayDiv = document.createElement('div');
-        dayDiv.textContent = i + " (" + adjustToHijri(dayjs(`2023-03-${i}`)) + ")"; // استدعاء الدالة لعرض التاريخ الهجري
-        dayDiv.onclick = () => openModal(i);
-        calendar.appendChild(dayDiv);
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            let emptyCell = document.createElement("div");
+            emptyCell.className = "calendar-empty";
+            calendarDiv.appendChild(emptyCell);
+        }
+
+        for (let i = 1; i <= 30; i++) {
+            let dayElement = document.createElement("a");
+            dayElement.className = "calendar-day";
+            dayElement.href = `day.html?day=${i}`;
+            dayElement.innerText = `يوم ${i}`;
+            calendarDiv.appendChild(dayElement);
+        }
     }
-}
 
-// فتح نافذة المهام
-function openModal(day) {
-    taskModal.setAttribute('data-day', day);
-    taskList.innerHTML = ''; 
-    tasks[day - 1].forEach((task) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-        taskList.appendChild(li);
-    });
-    taskModal.style.display = "block";
-}
-
-// إضافة مهمة
-addTaskButton.onclick = () => {
-    const day = parseInt(taskModal.getAttribute('data-day')) - 1; 
-    const newTask = newTaskInput.value;
-    if (newTask) {
-        tasks[day].push(newTask);
-        newTaskInput.value = '';
-        openModal(day + 1);
-    }
-};
-
-// إغلاق المودال
-closeModal.onclick = () => {
-    taskModal.style.display = "none";
-};
-
-window.onclick = (event) => {
-    if (event.target === taskModal) {
-        taskModal.style.display = "none";
-    }
-};
-
-// الدالة لتحويل التاريخ الميلادي إلى هجري
-function adjustToHijri(date) {
-    const hijriDate = dayjs(date).locale('ar-SA').format('iD iMMMM iYYYY');
-    return hijriDate;
-}
-
-// تنفيذ
-createCalendar();
-
-// تعيين المسبحة
-let count = 0;
-const tasbeehButton = document.getElementById('tasbeehButton');
-const countDisplay = document.getElementById('count');
-
-tasbeehButton.onclick = () => {
-    count++;
-    countDisplay.textContent = count;
-};
+    generateRamadanCalendar();
+});
