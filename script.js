@@ -5,13 +5,17 @@ const taskList = document.getElementById('taskList');
 const newTaskInput = document.getElementById('newTask');
 const addTaskButton = document.getElementById('addTask');
 
-const daysInRamadan = 30; // تغيير العدد وفقاً للشهر
+// عدد أيام رمضان
+const daysInRamadan = 30;
+
+// مصفوفة لتخزين المهام لكل يوم
+let tasks = Array.from({ length: daysInRamadan }, () => []);
 
 // إنشاء تقويم
 function createCalendar() {
     for (let i = 1; i <= daysInRamadan; i++) {
         const dayDiv = document.createElement('div');
-        dayDiv.textContent = i;
+        dayDiv.textContent = i + " (" + adjustToHijri(dayjs(`2023-03-${i}`)) + ")"; // استدعاء الدالة لعرض التاريخ الهجري
         dayDiv.onclick = () => openModal(i);
         calendar.appendChild(dayDiv);
     }
@@ -19,8 +23,9 @@ function createCalendar() {
 
 // فتح نافذة المهام
 function openModal(day) {
-    taskList.innerHTML = ''; // أفرغ قائمة المهام
-    tasks[day].forEach((task, index) => {
+    taskModal.setAttribute('data-day', day);
+    taskList.innerHTML = ''; 
+    tasks[day - 1].forEach((task) => {
         const li = document.createElement('li');
         li.textContent = task;
         taskList.appendChild(li);
@@ -29,14 +34,13 @@ function openModal(day) {
 }
 
 // إضافة مهمة
-let tasks = Array.from({ length: daysInRamadan }, () => []);
 addTaskButton.onclick = () => {
-    const day = parseInt(taskModal.getAttribute('data-day')); // استخدام اليوم الموجود في المودال
+    const day = parseInt(taskModal.getAttribute('data-day')) - 1; 
     const newTask = newTaskInput.value;
     if (newTask) {
         tasks[day].push(newTask);
         newTaskInput.value = '';
-        openModal(day); // تحديث قائمة المهام
+        openModal(day + 1);
     }
 };
 
