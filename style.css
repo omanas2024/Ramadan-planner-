@@ -1,8 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* تأكد من أن الخلفية موجودة */
     color: #333;
     text-align: center;
+    direction: rtl; /* إضافة هذه الخاصية لتحديد الاتجاه من اليمين إلى اليسار */
 }
 
 .container {
@@ -21,10 +22,10 @@ body {
     padding: 20px;
     border-radius: 5px;
     cursor: pointer;
-    display: flex; /* استخدام الفليكس */
-    justify-content: center; /* توسيط المحتوى أفقيًا */
-    align-items: center; /* توسيط المحتوى عموديًا */
-    height: 100px; /* تحديد ارتفاع ثابت لمربعات الأيام */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }
 
 .modal {
@@ -50,7 +51,7 @@ body {
 
 .close {
     color: #aaa;
-    float: right;
+    float: left; /* لإبقاء زر الإغلاق في اليسار */
     font-size: 28px;
     font-weight: bold;
 }
