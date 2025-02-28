@@ -1,33 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const addTaskBtn = document.getElementById("add-task");
-    const taskList = document.getElementById("task-list");
-    const dailyCompleted = document.getElementById("daily-completed");
-    const monthlyCompleted = document.getElementById("monthly-completed");
+// جزء المهام
+document.getElementById('add-task-button').addEventListener('click', function() {
+    const taskInput = document.getElementById('task-input');
+    const taskText = taskInput.value;
 
-    let completedTasks = 0;
+    if (taskText) {
+        const li = document.createElement('li');
+        li.textContent = taskText;
+        document.getElementById('tasks').appendChild(li);
+        taskInput.value = '';
+    }
+});
 
-    // إضافة مهمة جديدة
-    addTaskBtn.addEventListener("click", () => {
-        const taskDiv = document.createElement("div");
-        taskDiv.classList.add("task");
-        taskDiv.innerHTML = `
-            <input type="time">
-            <span>📝 مهمة جديدة</span>
-            <input type="checkbox">
-        `;
-        taskList.appendChild(taskDiv);
-    });
+// جزء المسبحة
+let count = localStorage.getItem('count') ? parseInt(localStorage.getItem('count')) : 0;
+document.getElementById('count').textContent = count;
 
-    // حساب عدد المهام المكتملة
-    taskList.addEventListener("change", (event) => {
-        if (event.target.type === "checkbox") {
-            if (event.target.checked) {
-                completedTasks++;
-            } else {
-                completedTasks--;
-            }
-            dailyCompleted.textContent = completedTasks;
-            monthlyCompleted.textContent = completedTasks; // يمكنك تحسين الحساب لليوم فقط
-        }
-    });
+document.getElementById('add-button').addEventListener('click', function() {
+    count++;
+    document.getElementById('count').textContent = count;
+    localStorage.setItem('count', count);
+});
+
+document.getElementById('reset-button').addEventListener('click', function() {
+    count = 0;
+    document.getElementById('count').textContent = count;
+    localStorage.setItem('count', count);
 });
