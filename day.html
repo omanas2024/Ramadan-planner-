@@ -1,35 +1,50 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقويم شهر رمضان 1446</title>
+    <title>يوم رمضان</title>
     <link rel="stylesheet" href="style.css">
+    <script src="day.js" defer></script>
 </head>
 <body>
+
     <div class="container">
-        <h1>تقويم شهر رمضان 1446</h1>
-        <div class="calendar" id="calendar"></div>
+        <header>
+            <h1>🌙 يوم رمضان</h1>
+            <a href="tasbeeh.html" class="tasbeeh-link">🔗 المسبحة الإلكترونية</a>
+        </header>
 
-        <div class="tasbeeh">
-            <h2>المسبحة</h2>
-            <button id="tasbeehButton">سبحان الله</button>
-            <button id="resetCount">صفر</button>
-            <div id="tasbeehCount">عدد التسبيحات: <span id="count">0</span></div>
-        </div>
+        <main>
+            <section class="tasks">
+                <h2>📋 مهام اليوم</h2>
+                <div id="task-list">
+                    <div class="task">
+                        <input type="time">
+                        <span>📖 قراءة القرآن</span>
+                        <input type="checkbox">
+                    </div>
+                    <div class="task">
+                        <input type="time">
+                        <span>🙏 صلاة التراويح</span>
+                        <input type="checkbox">
+                    </div>
+                    <div class="task">
+                        <input type="time">
+                        <span>🍽 تحضير وجبة الإفطار</span>
+                        <input type="checkbox">
+                    </div>
+                </div>
+                <button id="add-task">+ إضافة مهمة</button>
+            </section>
+
+            <section class="stats">
+                <h2>📊 إحصائيات اليوم</h2>
+                <p>✅ عدد المهام المكتملة: <span id="daily-completed">0</span></p>
+                <p>📅 إجمالي المهام المكتملة في الشهر: <span id="monthly-completed">0</span></p>
+            </section>
+        </main>
     </div>
 
-    <div class="modal" id="taskModal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">×</span>
-            <h2>مهام اليوم</h2>
-            <ul id="taskList"></ul>
-            <input type="text" id="newTask" placeholder="أضف مهمة أخرى" />
-            <button id="addTask">إضافة</button>
-        </div>
-    </div>
-
-    <script src="day.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
