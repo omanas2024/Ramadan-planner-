@@ -1,3 +1,5 @@
+// ملف script.js
+
 const calendar = document.getElementById('calendar');
 const taskModal = document.getElementById('taskModal');
 const closeModal = document.getElementById('closeModal');
