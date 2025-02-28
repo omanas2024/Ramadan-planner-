@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+#task-list, #counter-container {
+    margin-bottom: 20px;
+}
+
+#task-input {
+    margin-right: 10px;
+}
+
+button {
+    cursor: pointer;
+}
