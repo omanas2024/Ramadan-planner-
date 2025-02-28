@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مخطط رمضان</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>تقويم رمضان 1446 هـ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>مخطط رمضان</h1>
-    <div id="task-list">
-        <h2>المهام</h2>
-        <input type="text" id="task-input" placeholder="إضافة مهمة جديدة" />
-        <button id="add-task-button">إضافة</button>
-        <ul id="tasks"></ul>
+    <h1>🌙 تقويم شهر رمضان 1446 هـ</h1>
+    <div class="calendar">
+        <!-- إنشاء التقويم بعرض الأيام -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let calendarContainer = document.querySelector('.calendar');
+                for (let i = 1; i <= 30; i++) {
+                    let dayLink = document.createElement('a');
+                    dayLink.href = `day.html?day=${i}`;
+                    dayLink.classList.add("day-box");
+                    dayLink.innerText = `اليوم ${i}`;
+                    calendarContainer.appendChild(dayLink);
+                }
+            });
+        </script>
     </div>
-    
-    <div id="counter-container">
-        <h2>مسبحة الذكر</h2>
-        <p>عدد الذكر: <span id="count">0</span></p>
-        <button id="add-button">أضف</button>
-        <button id="reset-button">إعادة تعيين</button>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
