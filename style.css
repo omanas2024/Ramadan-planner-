@@ -1,24 +1,111 @@
+/* إعدادات الصفحة */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Traditional Arabic', Arial, sans-serif;
+    text-align: center;
+    direction: rtl;
+    background: url('https://i.ibb.co/b5j9nSVD/image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* تنسيق الحاوية الرئيسية */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسين عرض أيام الأسبوع */
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: bold;
+    text-align: center;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* تحسين التقويم وإزالة التواريخ الإضافية */
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: #F4F4F4;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
     color: #333;
+    text-decoration: none;
+    border: 2px solid #ddd;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    background: #87CEFA;
+    transform: scale(1.1);
+}
+
+/* تنسيق المسبحة */
+.tasbeeh-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
     text-align: center;
 }
 
-.container {
-    padding: 20px;
+/* أزرار التسبيح */
+.counter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 
-.calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-}
-
-.calendar div {
-    background-color: #4caf50;
+.counter-container button {
+    padding: 15px;
+    font-size: 22px;
+    background: #4CAF50;
     color: white;
-    padding: 20px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
+}
+
+#tasbeehCount {
+    font-size: 32px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* أزرار التحكم */
+.controls button {
+    padding: 15px;
+    font-size: 20px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    width: 80%;
+}
+
+.controls button:hover {
+    background: #2980b9;
 }
