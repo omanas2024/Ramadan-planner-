@@ -3,48 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يوم رمضان</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>مخطط رمضان</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="container">
-        <header>
-            <h1>🌙 يوم رمضان</h1>
-            <a href="tasbeeh.html" class="tasbeeh-link">🔗 المسبحة الإلكترونية</a>
-        </header>
-
-        <main>
-            <section class="tasks">
-                <h2>📋 مهام اليوم</h2>
-                <div id="task-list">
-                    <div class="task">
-                        <input type="time">
-                        <span>📖 قراءة القرآن</span>
-                        <input type="checkbox">
-                    </div>
-                    <div class="task">
-                        <input type="time">
-                        <span>🙏 صلاة التراويح</span>
-                        <input type="checkbox">
-                    </div>
-                    <div class="task">
-                        <input type="time">
-                        <span>🍽 تحضير وجبة الإفطار</span>
-                        <input type="checkbox">
-                    </div>
-                </div>
-                <button id="add-task">+ إضافة مهمة</button>
-            </section>
-
-            <section class="stats">
-                <h2>📊 إحصائيات اليوم</h2>
-                <p>✅ عدد المهام المكتملة: <span id="daily-completed">0</span></p>
-                <p>📅 إجمالي المهام المكتملة في الشهر: <span id="monthly-completed">0</span></p>
-            </section>
-        </main>
+    <h1>مخطط رمضان</h1>
+    <div id="task-list">
+        <h2>المهام</h2>
+        <input type="text" id="task-input" placeholder="إضافة مهمة جديدة" />
+        <button id="add-task-button">إضافة</button>
+        <ul id="tasks"></ul>
+    </div>
+    
+    <div id="counter-container">
+        <h2>مسبحة الذكر</h2>
+        <p>عدد الذكر: <span id="count">0</span></p>
+        <button id="add-button">أضف</button>
+        <button id="reset-button">إعادة تعيين</button>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
