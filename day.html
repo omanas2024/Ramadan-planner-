@@ -6,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تقويم شهر رمضان 1446</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/advancedFormat.min.js"></script>
-    <script>
-        // تحميل الإضافات للـ day.js
-        dayjs.extend(dayjs_plugin_advancedFormat);
-    </script>
 </head>
 
 <body>
@@ -20,23 +14,23 @@
         <div class="calendar" id="calendar"></div>
     </div>
 
-    <div class="modal" id="taskModal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>مهام اليوم</h2>
-            <ul id="taskList"></ul>
-            <input type="text" id="newTask" placeholder="أضف مهمة أخرى">
-            <button id="addTask">إضافة</button>
-        </div>
-    </div>
+    <script>
+        const calendar = document.getElementById('calendar');
 
-    <div class="tasbeeh">
-        <h2>المسبحة</h2>
-        <button id="tasbeehButton">سبحان الله</button>
-        <div id="tasbeehCount">عدد التسبيحات: <span id="count">0</span></div>
-    </div>
+        // عدد أيام رمضان
+        const daysInRamadan = 30;
 
-    <script src="script.js"></script>
+        // إنشاء تقويم
+        function createCalendar() {
+            for (let i = 1; i <= daysInRamadan; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.textContent = `اليوم ${i}`;
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        createCalendar();
+    </script>
 </body>
 
 </html>
