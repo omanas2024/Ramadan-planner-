@@ -1,15 +1,24 @@
-// إعداد المسبحة
 let count = 0;
-const tasbeehButton = document.getElementById('tasbeehButton');
-const countDisplay = document.getElementById('count');
-const resetCountButton = document.getElementById('resetCount');
 
-tasbeehButton.onclick = () => {
+document.getElementById('add-button').addEventListener('click', function() {
     count++;
-    countDisplay.textContent = count;
-};
+    document.getElementById('count').textContent = count;
+});
 
-resetCountButton.onclick = () => {
+document.getElementById('reset-button').addEventListener('click', function() {
     count = 0;
-    countDisplay.textContent = count;
-};
+    document.getElementById('count').textContent = count;
+});
+
+// وظائف المخطط
+document.getElementById('add-task-button').addEventListener('click', function() {
+    const taskInput = document.getElementById('task-input');
+    const taskText = taskInput.value.trim();
+
+    if (taskText !== "") {
+        const li = document.createElement('li');
+        li.textContent = taskText;
+        document.getElementById('task-list').appendChild(li);
+        taskInput.value = ''; // إعادة تعيين حقل الإدخال
+    }
+});
