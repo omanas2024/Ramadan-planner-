@@ -1,9 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* تأكد من أن الخلفية موجودة */
+    background-color: #f0f0f0; /* اللون الخلفي */
     color: #333;
     text-align: center;
-    direction: rtl; /* إضافة هذه الخاصية لتحديد الاتجاه من اليمين إلى اليسار */
+    direction: rtl; /* الاتجاه من اليمين إلى اليسار */
 }
 
 .container {
@@ -51,7 +51,7 @@ body {
 
 .close {
     color: #aaa;
-    float: left; /* لإبقاء زر الإغلاق في اليسار */
+    float: left;
     font-size: 28px;
     font-weight: bold;
 }
