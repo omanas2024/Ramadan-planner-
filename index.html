@@ -3,28 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> <!-- رابط لملف الـ CSS -->
-    <title>مسبحة ومخطط</title>
+    <title>يوم رمضان</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="planner">
-            <h1>المخطط</h1>
-            <input type="text" id="task-input" placeholder="أضف مهمة جديدة">
-            <button id="add-task-button">إضافة مهمة</button>
-            <ul id="task-list"></ul>
-        </div>
 
-        <div class="counter-container">
-            <h1>مسبحة</h1>
-            <div class="counter">
-                <p>عدد الذكر: <span id="count">0</span></p>
-            </div>
-            <button id="add-button">أضف</button>
-            <button id="reset-button">إعادة تعيين</button>
-        </div>
+    <div class="container">
+        <header>
+            <h1>🌙 يوم رمضان</h1>
+            <a href="tasbeeh.html" class="tasbeeh-link">🔗 المسبحة الإلكترونية</a>
+        </header>
+
+        <main>
+            <section class="tasks">
+                <h2>📋 مهام اليوم</h2>
+                <div id="task-list">
+                    <div class="task">
+                        <input type="time">
+                        <span>📖 قراءة القرآن</span>
+                        <input type="checkbox">
+                    </div>
+                    <div class="task">
+                        <input type="time">
+                        <span>🙏 صلاة التراويح</span>
+                        <input type="checkbox">
+                    </div>
+                    <div class="task">
+                        <input type="time">
+                        <span>🍽 تحضير وجبة الإفطار</span>
+                        <input type="checkbox">
+                    </div>
+                </div>
+                <button id="add-task">+ إضافة مهمة</button>
+            </section>
+
+            <section class="stats">
+                <h2>📊 إحصائيات اليوم</h2>
+                <p>✅ عدد المهام المكتملة: <span id="daily-completed">0</span></p>
+                <p>📅 إجمالي المهام المكتملة في الشهر: <span id="monthly-completed">0</span></p>
+            </section>
+        </main>
     </div>
 
-    <script src="script.js"></script> <!-- رابط لملف الـ JavaScript -->
 </body>
 </html>
