@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مخطط رمضان - يوم</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>يوم رمضان</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="day.js" defer></script>
 </head>
 <body>
-    <h1>مخطط رمضان - يوم</h1>
+    <h1 id="day-title"></h1>
     
-    <div id="task-list">
-        <h2>المهام</h2>
-        <input type="text" id="task-input" placeholder="إضافة مهمة جديدة" />
-        <button id="add-task-button">إضافة</button>
-        <ul id="tasks"></ul>
-    </div>
-    
-    <div id="counter-container">
-        <h2>مسبحة الذكر</h2>
-        <p>عدد الذكر: <span id="count">0</span></p>
-        <button id="add-button">أضف</button>
-        <button id="reset-button">إعادة تعيين</button>
-    </div>
+    <a href="subhan-allah.html" class="tasbeeh-link">🔗 المسبحة الإلكترونية</a>
 
-    <script src="day.js"></script>
+    <h2>📋 مهام اليوم</h2>
+    <div id="tasks">
+        <!-- قائمة المهام -->
+    </div>
+    
+    <button onclick="addTask()">➕ إضافة مهمة</button>
+
+    <h2>📊 إحصائيات اليوم</h2>
+    <p>✅ عدد المهام المكتملة: <span id="completed-tasks">0</span></p>
+    <p>📅 إجمالي المهام المكتملة في الشهر: <span id="monthly-tasks">0</span></p>
+
+    <a href="index.html">🔙 الرجوع للتقويم</a>
 </body>
 </html>
