@@ -13,7 +13,7 @@ let tasks = Array.from({ length: daysInRamadan }, () => []);
 
 // إنشاء تقويم
 function createCalendar() {
-    for (let i = 1; i <= daysInRamadan; i++) {
+    for (let i = daysInRamadan; i >= 1; i--) { // عد من 30 إلى 1
         const dayDiv = document.createElement('div');
         dayDiv.textContent = i + " (" + adjustToHijri(dayjs(`2023-03-${i}`)) + ")"; // استدعاء الدالة لعرض التاريخ الهجري
         dayDiv.onclick = () => openModal(i);
@@ -55,5 +55,21 @@ window.onclick = (event) => {
     }
 };
 
+// الدالة لتحويل التاريخ الميلادي إلى هجري
+function adjustToHijri(date) {
+    const hijriDate = dayjs(date).locale('ar-SA').format('iD iMMMM iYYYY');
+    return hijriDate;
+}
+
 // تنفيذ
 createCalendar();
+
+// تعيين المسبحة
+let count = 0;
+const tasbeehButton = document.getElementById('tasbeehButton');
+const countDisplay = document.getElementById('count');
+
+tasbeehButton.onclick = () => {
+    count++;
+    countDisplay.textContent = count;
+};
