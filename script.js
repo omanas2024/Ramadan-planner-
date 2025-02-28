@@ -1,34 +1,75 @@
-document.addEventListener("DOMContentLoaded", function () {
-    function generateRamadanCalendar() {
-        const calendarDiv = document.getElementById("ramadanCalendar");
-        if (!calendarDiv) {
-            console.error("لم يتم العثور على عنصر التقويم!");
-            return;
-        }
+const calendar = document.getElementById('calendar');
+const taskModal = document.getElementById('taskModal');
+const closeModal = document.getElementById('closeModal');
+const taskList = document.getElementById('taskList');
+const newTaskInput = document.getElementById('newTask');
+const addTaskButton = document.getElementById('addTask');
 
-        calendarDiv.innerHTML = "";
-        calendarDiv.style.display = "grid";
-        calendarDiv.style.gridTemplateColumns = "repeat(7, 1fr)";
-        calendarDiv.style.gap = "10px";
-        calendarDiv.style.direction = "rtl";
+// عدد أيام رمضان
+const daysInRamadan = 30;
 
-        const startDate = new Date("2025-03-01");
-        const firstDayOfWeek = startDate.getDay();
+// مصفوفة لتخزين المهام لكل يوم
+let tasks = Array.from({ length: daysInRamadan }, () => []);
 
-        for (let i = 0; i < firstDayOfWeek; i++) {
-            let emptyCell = document.createElement("div");
-            emptyCell.className = "calendar-empty";
-            calendarDiv.appendChild(emptyCell);
-        }
-
-        for (let i = 1; i <= 30; i++) {
-            let dayElement = document.createElement("a");
-            dayElement.className = "calendar-day";
-            dayElement.href = `day.html?day=${i}`;
-            dayElement.innerText = `يوم ${i}`;
-            calendarDiv.appendChild(dayElement);
-        }
+// إنشاء تقويم
+function createCalendar() {
+    for (let i = 1; i <= daysInRamadan; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = `اليوم ${i}`;
+        dayDiv.onclick = () => openModal(i);
+        calendar.appendChild(dayDiv);
     }
+}
 
-    generateRamadanCalendar();
-});
+// فتح نافذة المهام
+function openModal(day) {
+    taskModal.setAttribute('data-day', day);
+    taskList.innerHTML = ''; 
+    tasks[day - 1].forEach((task) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        taskList.appendChild(li);
+    });
+    taskModal.style.display = "block";
+}
+
+// إضافة مهمة
+addTaskButton.onclick = () => {
+    const day = parseInt(taskModal.getAttribute('data-day')) - 1; 
+    const newTask = newTaskInput.value;
+    if (newTask) {
+        tasks[day].push(newTask);
+        newTaskInput.value = '';
+        openModal(day + 1);
+    }
+};
+
+// إغلاق المودال
+closeModal.onclick = () => {
+    taskModal.style.display = "none";
+};
+
+window.onclick = (event) => {
+    if (event.target === taskModal) {
+        taskModal.style.display = "none";
+    }
+};
+
+// تنفيذ
+createCalendar();
+
+// تعيين المسبحة
+let count = 0;
+const tasbeehButton = document.getElementById('tasbeehButton');
+const countDisplay = document.getElementById('count');
+const resetCountButton = document.getElementById('resetCount');
+
+tasbeehButton.onclick = () => {
+    count++;
+    countDisplay.textContent = count;
+};
+
+resetCountButton.onclick = () => {
+    count = 0;
+    countDisplay.textContent = count;
+};
