@@ -1,15 +1,30 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرئيسية</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- رابط لملف الـ CSS -->
+    <title>مسبحة ومخطط</title>
 </head>
 <body>
     <div class="container">
-        <h1>مرحبًا بك في تطبيق التقويم</h1>
-        <a href="day.html">اذهب إلى التقويم</a>
+        <div class="planner">
+            <h1>المخطط</h1>
+            <input type="text" id="task-input" placeholder="أضف مهمة جديدة">
+            <button id="add-task-button">إضافة مهمة</button>
+            <ul id="task-list"></ul>
+        </div>
+
+        <div class="counter-container">
+            <h1>مسبحة</h1>
+            <div class="counter">
+                <p>عدد الذكر: <span id="count">0</span></p>
+            </div>
+            <button id="add-button">أضف</button>
+            <button id="reset-button">إعادة تعيين</button>
+        </div>
     </div>
+
+    <script src="script.js"></script> <!-- رابط لملف الـ JavaScript -->
 </body>
 </html>
