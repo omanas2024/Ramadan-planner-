@@ -1,61 +1,37 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يوم رمضان</title>
+    <title>تقويم شهر رمضان 1446</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="day.js"></script>
 </head>
+
 <body>
-
     <div class="container">
-        <h1 id="dayTitle">📅 يوم رمضان</h1>
+        <h1>تقويم شهر رمضان 1446</h1>
+        <div class="calendar" id="calendar"></div>
+    </div>
 
-        <div class="task-section">
-            <h2>📋 قائمة المهام</h2>
-            <select id="taskSelect">
-                <option value="">اختر مهمة...</option>
-                <option value="🕌 الفجر">🕌 الفجر</option>
-                <option value="🕌 الظهر">🕌 الظهر</option>
-                <option value="🕌 العصر">🕌 العصر</option>
-                <option value="🕌 المغرب">🕌 المغرب</option>
-                <option value="🕌 العشاء">🕌 العشاء</option>
-                <option value="🤲 الدعاء">🤲 الدعاء</option>
-                <option value="📖 قراءة القرآن">📖 قراءة القرآن</option>
-                <option value="💰 الصدقة">💰 الصدقة</option>
-                <option value="✍️ مهمة أخرى">✍️ مهمة أخرى...</option>
-            </select>
-            <button onclick="addTask()">➕</button>
-        </div>
-
-        <ul id="taskList"></ul>
-
-        <div class="tasbeeh-section">
-            <h2>📿 المسبحة الإلكترونية</h2>
-            <select id="tasbeehSelect">
-                <option value="سبحان الله">سبحان الله</option>
-                <option value="الحمد لله">الحمد لله</option>
-                <option value="لا إله إلا الله">لا إله إلا الله</option>
-                <option value="الله أكبر">الله أكبر</option>
-                <option value="لا حول ولا قوة إلا بالله">لا حول ولا قوة إلا بالله</option>
-                <option value="أستغفر الله">أستغفر الله</option>
-                <option value="اللهم صل وسلم على نبينا محمد">اللهم صل وسلم على نبينا محمد</option>
-            </select>
-            <div class="counter-container">
-                <button onclick="decreaseCount()">➖</button>
-                <span id="tasbeehCount">0</span>
-                <button onclick="increaseCount()">➕</button>
-            </div>
-            <button onclick="resetCount()">🔄 إعادة التصفير</button>
-        </div>
-
-        <div class="controls">
-            <button onclick="copyPreviousDayTasks()">📋 نسخ مهام اليوم السابق</button>
-            <button onclick="resetAllTasks()">🔄 إعادة تعيين المهام</button>
-            <button onclick="goBack()">🔙 رجوع</button>
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>مهام اليوم</h2>
+            <ul id="taskList"></ul>
+            <input type="text" id="newTask" placeholder="أضف مهمة أخرى">
+            <button id="addTask">إضافة</button>
         </div>
     </div>
 
+    <div class="tasbeeh">
+        <h2>المسبحة</h2>
+        <button id="tasbeehButton">سبحان الله</button>
+        <button id="resetCount">صفر</button>
+        <div id="tasbeehCount">عدد التسبيحات: <span id="count">0</span></div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
