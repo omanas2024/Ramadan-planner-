@@ -1,77 +1,55 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const dayNumber = urlParams.get("day");
+const calendar = document.getElementById('calendar');
+const taskModal = document.getElementById('taskModal');
+const closeModal = document.getElementById('closeModal');
+const taskList = document.getElementById('taskList');
+const newTaskInput = document.getElementById('newTask');
+const addTaskButton = document.getElementById('addTask');
 
-    if (dayNumber) {
-        document.getElementById("dayTitle").innerText = `📅 يوم رمضان ${dayNumber}`;
+const daysInRamadan = 30; // تغيير العدد وفقاً للشهر
+
+// إنشاء تقويم
+function createCalendar() {
+    for (let i = 1; i <= daysInRamadan; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = i;
+        dayDiv.onclick = () => openModal(i);
+        calendar.appendChild(dayDiv);
     }
+}
 
-    let tasks = JSON.parse(localStorage.getItem(`tasks_${dayNumber}`)) || [];
+// فتح نافذة المهام
+function openModal(day) {
+    taskList.innerHTML = ''; // أفرغ قائمة المهام
+    tasks[day].forEach((task, index) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        taskList.appendChild(li);
+    });
+    taskModal.style.display = "block";
+}
 
-    function renderTasks() {
-        const taskList = document.getElementById("taskList");
-        taskList.innerHTML = "";
-
-        tasks.forEach((task, index) => {
-            const taskItem = document.createElement("li");
-            taskItem.className = task.completed ? "completed" : "";
-            taskItem.innerHTML = `
-                <span>${task.text} 🕒 ${task.time || "غير محدد"}</span>
-                <button onclick="completeTask(${index})">🏆</button>
-                <button onclick="deleteTask(${index})">🗑</button>
-            `;
-            taskList.appendChild(taskItem);
-        });
-
-        saveTasks();
+// إضافة مهمة
+let tasks = Array.from({ length: daysInRamadan }, () => []);
+addTaskButton.onclick = () => {
+    const day = parseInt(taskModal.getAttribute('data-day')); // استخدام اليوم الموجود في المودال
+    const newTask = newTaskInput.value;
+    if (newTask) {
+        tasks[day].push(newTask);
+        newTaskInput.value = '';
+        openModal(day); // تحديث قائمة المهام
     }
+};
 
-    window.addTask = function () {
-        const taskSelect = document.getElementById("taskSelect");
-        const customTaskInput = document.getElementById("customTaskInput");
-        const taskTime = document.getElementById("taskTime").value;
-        let taskText = "";
+// إغلاق المودال
+closeModal.onclick = () => {
+    taskModal.style.display = "none";
+};
 
-        if (taskSelect.value === "✍️ مهمة أخرى") {
-            if (customTaskInput.value.trim() !== "") {
-                taskText = customTaskInput.value;
-                customTaskInput.value = "";
-            } else {
-                alert("يرجى إدخال اسم المهمة.");
-                return;
-            }
-        } else {
-            taskText = taskSelect.value;
-        }
-
-        if (taskText !== "") {
-            tasks.push({ text: taskText, time: taskTime, completed: false });
-            renderTasks();
-        }
-    };
-
-    window.completeTask = function (index) {
-        tasks[index].completed = true;
-        renderTasks();
-    };
-
-    window.deleteTask = function (index) {
-        tasks.splice(index, 1);
-        renderTasks();
-    };
-
-    window.resetAllTasks = function () {
-        tasks = [];
-        renderTasks();
-    };
-
-    function saveTasks() {
-        localStorage.setItem(`tasks_${dayNumber}`, JSON.stringify(tasks));
+window.onclick = (event) => {
+    if (event.target === taskModal) {
+        taskModal.style.display = "none";
     }
+};
 
-    window.goBack = function () {
-        window.location.href = "index.html";
-    };
-
-    renderTasks();
-});
+// تنفيذ
+createCalendar();
