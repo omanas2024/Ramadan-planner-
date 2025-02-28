@@ -1,67 +1,61 @@
 body {
-    font-family: "Traditional Arabic", sans-serif;
+    font-family: "Traditional Arabic", Arial, sans-serif;
     text-align: center;
     background: url('https://i.ibb.co/b5j9nSVD/image.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.6);
-}
-
-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
 }
 
 h1 {
-    color: #FFD700;
-    font-size: 28px;
+    font-size: 2em;
+    color: gold;
 }
 
-.tasbeeh-link {
-    font-size: 18px;
-    text-decoration: none;
-    color: #FFD700;
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    width: 80%;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.tasks, .stats {
-    background: rgba(255, 255, 255, 0.2);
+.day-box {
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    transition: 0.3s;
 }
 
-.task {
+.day-box:hover {
+    background-color: gold;
+    color: black;
+}
+
+.task-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 10px 0;
 }
 
-button {
-    background: #FFD700;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+.task-item input {
+    transform: scale(1.5);
+}
+
+.tasbeeh-link {
+    display: block;
+    color: lightblue;
+    font-size: 1.5em;
+    margin: 15px 0;
+    text-decoration: none;
+}
+
+.tasbeeh-link:hover {
+    color: gold;
 }
