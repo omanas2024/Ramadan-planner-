@@ -13,7 +13,7 @@ let tasks = Array.from({ length: daysInRamadan }, () => []);
 
 // إنشاء تقويم
 function createCalendar() {
-    for (let i = daysInRamadan; i >= 1; i--) { // عد من 30 إلى 1
+    for (let i = daysInRamadan; i >= 1; i--) {
         const dayDiv = document.createElement('div');
         dayDiv.textContent = i + " (" + adjustToHijri(dayjs(`2023-03-${i}`)) + ")"; // استدعاء الدالة لعرض التاريخ الهجري
         dayDiv.onclick = () => openModal(i);
