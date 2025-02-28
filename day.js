@@ -1,10 +1,59 @@
-function adjustToHijri(date) {
-    // تحويل التاريخ الميلادي إلى هجري (تقدير تقريبي، يمكن استخدام مكتبة أخرى دقيقة لهذا)
-    const hijriDate = dayjs(date).locale('ar-SA').format('iD iMMMM iYYYY');
-    return hijriDate;
+const calendar = document.getElementById('calendar');
+const taskModal = document.getElementById('taskModal');
+const closeModal = document.getElementById('closeModal');
+const taskList = document.getElementById('taskList');
+const newTaskInput = document.getElementById('newTask');
+const addTaskButton = document.getElementById('addTask');
+
+// عدد أيام رمضان
+const daysInRamadan = 30;
+
+// مصفوفة لتخزين المهام لكل يوم
+let tasks = Array.from({ length: daysInRamadan }, () => []);
+
+// إنشاء التقويم
+function createCalendar() {
+    for (let i = 1; i <= daysInRamadan; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = `اليوم ${i}`;
+        dayDiv.onclick = () => openModal(i);
+        calendar.appendChild(dayDiv);
+    }
 }
 
-// استخدام اليوم الحالي
-const today = dayjs();
-console.log('التاريخ اليوم: ' + today.format('YYYY-MM-DD'));
-console.log('التاريخ هجري اليوم: ' + adjustToHijri(today));
+// فتح نافذة المهام
+function openModal(day) {
+    taskModal.setAttribute('data-day', day);
+    taskList.innerHTML = ''; 
+    tasks[day - 1].forEach((task) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        taskList.appendChild(li);
+    });
+    taskModal.style.display = "block";
+}
+
+// إضافة مهمة
+addTaskButton.onclick = () => {
+    const day = parseInt(taskModal.getAttribute('data-day')) - 1; 
+    const newTask = newTaskInput.value;
+    if (newTask) {
+        tasks[day].push(newTask);
+        newTaskInput.value = '';
+        openModal(day + 1);
+    }
+};
+
+// إغلاق المودال
+closeModal.onclick = () => {
+    taskModal.style.display = "none";
+};
+
+window.onclick = (event) => {
+    if (event.target === taskModal) {
+        taskModal.style.display = "none";
+    }
+};
+
+// تنفيذ التقويم
+createCalendar();
