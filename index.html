@@ -1,40 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقويم رمضان</title>
+    <title>تقويم شهر رمضان 1446</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
+
 <body>
-
     <div class="container">
-        <h1>🌙 تقويم رمضان</h1>
+        <h1>تقويم شهر رمضان 1446</h1>
+        <div class="calendar" id="calendar"></div>
+    </div>
 
-        <!-- عرض تقويم رمضان -->
-        <div class="calendar">
-            <h2>رمضان 1445 هـ</h2>
-            <div id="ramadanCalendar"></div>
-        </div>
-
-        <!-- قائمة المهام لليوم المحدد -->
-        <div id="taskSection" style="display: none;">
-            <h2 id="selectedDay"></h2>
-            <div class="task-input">
-                <input type="text" id="taskInput" placeholder="أدخل المهمة">
-                <input type="time" id="taskTime">
-                <button onclick="addTask()">➕</button>
-            </div>
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>مهام اليوم</h2>
             <ul id="taskList"></ul>
-        </div>
-
-        <!-- أزرار التحكم -->
-        <div class="controls">
-            <button class="toggle-mode" onclick="toggleDarkMode()">🌙</button>
-            <button class="reset-all" onclick="resetAllTasks()">🔄 إعادة تعيين الكل</button>
+            <input type="text" id="newTask" placeholder="أضف مهمة أخرى">
+            <button id="addTask">إضافة</button>
         </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
+
 </html>
